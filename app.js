@@ -16,10 +16,10 @@ const STATUSES = ['confirmed', 'recovered', 'deaths'];
 app.post('/', async (req, res) => {
   console.log(req.body)
   const country = req.body.queryResult.parameters["geo-country"];
-
+  let countrySlug = country.replace(/\s+/g, '-').toLowerCase()
   const casesPromises = STATUSES.map(async status => {
   	try {
-  	  const response = await axios.get('https://api.covid19api.com/total/country/' + country.toLowerCase() + '/status/' + status)
+  	  const response = await axios.get('https://api.covid19api.com/total/country/' + countrySlug + '/status/' + status)
   	  const numberOfCases = response.data.pop().Cases;
 
   	  return `${status}: ${numberOfCases}`
@@ -33,11 +33,11 @@ app.post('/', async (req, res) => {
   if (numberOfCases.some(element => element == undefined)) {
   	numberOfCasesText = `Sorry, I don't understand: ${country}. Please provide another name.`;
   } else {
-  	numberOfCasesText = `The current numbers for ${country} are ${numberOfCases.join(', ')}.`	
+  	numberOfCasesText = `The current numbers for ${country} are ${numberOfCases.join(', ')}.`
   }
-  
 
-  
+
+
   console.log(numberOfCasesText)
 
   // const response = await axios.get('https://api.covid19api.com/live/country/' + country.toLowerCase() + '/status/confirmed')
