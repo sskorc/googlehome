@@ -12,7 +12,7 @@ if (port == null || port == "") {
 app.post('/', (req, res) =>{
   console.log(req.body)
   res.send({
-    "fulfillmentText" : req.body.queryResult.parameters
+    "fulfillmentText" : `Okay, so your favorite color is: ${req.body.queryResult.parameters.color} `
    })
 }
 )
