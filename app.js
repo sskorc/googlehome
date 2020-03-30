@@ -11,8 +11,11 @@ if (port == null || port == "") {
 
 app.post('/', (req, res) =>{
   console.log(req.body)
+
+  const numberOfCases = 100;
+
   res.send({
-    "fulfillmentText" : `Okay, so your favorite color is: ${req.body.queryResult.parameters.color} `
+    "fulfillmentText" : `The current number of cases in Poland is ${numberOfCases}`
    })
 }
 )
