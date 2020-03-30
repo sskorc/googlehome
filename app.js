@@ -12,16 +12,18 @@ if (port == null || port == "") {
 }
 
 app.post('/', async (req, res) =>{
-  console.log(req.body)
+  // console.log(req)
 
-  const response = await axios.get('https://api.covid19api.com/live/country/poland/status/confirmed')
+  const country = req.body.queryResult.parameters["geo-country"];
+
+  const response = await axios.get('https://api.covid19api.com/live/country/' + country.toLowerCase() + '/status/confirmed')
 
   const numberOfCases = response.data.pop().Cases;
 
   // const numberOfCases = 100;
 
   res.send({
-    "fulfillmentText" : `The current number of cases in Poland is ${numberOfCases}`
+    "fulfillmentText" : `The current number of cases in ${country} is ${numberOfCases}`
    })
 }
 )
