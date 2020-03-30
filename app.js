@@ -16,7 +16,13 @@ const STATUSES = ['confirmed', 'recovered', 'deaths'];
 app.post('/', async (req, res) => {
   console.log(req.body)
   const country = req.body.queryResult.parameters["geo-country"];
-  let countrySlug = country.replace(/\s+/g, '-').toLowerCase()
+  let countrySlug = country.replace(/\'/,'').replace(/\s+/g, '-').toLowerCase()
+    if(countrySlug == 'south-korea') {
+        countrySlug = 'korea-south'
+    }
+    else if(countrySlug == 'united-states') {
+        countrySlug = 'us'
+    }
   const casesPromises = STATUSES.map(async status => {
   	try {
   	  const response = await axios.get('https://api.covid19api.com/total/country/' + countrySlug + '/status/' + status)
