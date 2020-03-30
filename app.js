@@ -6,6 +6,6 @@ if (port == null || port == "") {
   port = 8000;
 }
 
-app.get('/', (req, res) => res.send({ "fulfillmentText" : "Thanks!" }))
+app.post('/', (req, res) => res.send({ "fulfillmentText" : "Thanks!" }))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
